@@ -1,5 +1,7 @@
-rm(list=ls())
+# This script takes in the samsung data and cleans it to create a new tidy clean data set
 
+rm(list=ls())
+library(plyr)
 # read training and test data
 trainData <- read.table("UCI HAR Dataset/train/X_train.txt")
 testData <- read.table("UCI HAR Dataset/test/X_test.txt")
@@ -44,8 +46,8 @@ data[data[,"label"]==4,"label"] <- "SITTING"
 data[data[,"label"]==5,"label"] <- "STANDING"
 data[data[,"label"]==6,"label"] <- "LAYING"
 
-data$label <- as.factor(data$label)
-data$subject <- as.factor(data$subject)
+# data$label <- as.factor(data$label)
+# data$subject <- as.factor(data$subject)
 
 # extract only mean and standard deviation measurements
 name <- colnames(data)
@@ -63,6 +65,6 @@ selectedData <- data[,selectedIdx]
 numOfSelectedFeatures <- ncol(selectedData)
 
 # generate second, independent tidy data set
-data2 <- tapply(selectedData[,1:numOfSelectedFeatures-2], list(selectedData[,numOfSelectedFeatures-1],selectedData[,numOfSelectedFeatures]), mean)
+tidyData <- aggregate(selectedData[,1:79], by = selectedData[c("label","subject")], FUN=mean)
 
-
+write.table(tidyData, "tidyData.txt", row.name=FALSE)
