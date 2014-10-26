@@ -65,6 +65,6 @@ selectedData <- data[,selectedIdx]
 numOfSelectedFeatures <- ncol(selectedData)
 
 # generate second, independent tidy data set
-tidyData <- aggregate(selectedData[,1:79], by = selectedData[c("label","subject")], FUN=mean)
+tidyData <- aggregate(selectedData[,1:(numOfSelectedFeatures-2)], by = selectedData[c("label","subject")], FUN=mean)
 
 write.table(tidyData, "tidyData.txt", row.name=FALSE)
