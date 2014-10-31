@@ -9,6 +9,7 @@ The script run_analysis.R does the following:
  7. replace all activity numbers to activity names
  8. extract only mean and standard deviation measurements
  9. generate a second, independent tidy data set group by activity and subject
+ 
 
 
 
